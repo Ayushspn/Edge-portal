@@ -1,0 +1,15 @@
+{  
+    "employee": [ 
+        {
+            "empName":       "Ayush",  
+            "empCode" : 51763113, 
+            "empSkills" : "Ractjs , Angular , FireBase , HTML5 , CSS3,  Boosttrap, "
+
+        }, 
+        {
+            "name":       "Paras",   
+        "salary":      56000,   
+        "married":    true  
+        },     
+    ] 
+}  
