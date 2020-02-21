@@ -10,6 +10,7 @@ function App() {
   
   return (
     <div className="App">
+      
       <Route path ='/' exact component = {EmployeeList}/>
       <Route path ='/employee-details/:id' exact component = {EmployeeDetails}/>
       

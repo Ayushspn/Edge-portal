@@ -4,8 +4,7 @@ import './index.css';
 import App from './App';
 
 import { BrowserRouter} from "react-router-dom";
-//import * as serviceWorker from './serviceWorker';
-
+import '../node_modules/font-awesome/css/font-awesome.min.css'; 
 import rootReduer from './redux/rootReducer';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware  } from 'redux';

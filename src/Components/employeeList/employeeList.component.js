@@ -1,16 +1,20 @@
-import React, { useEffect } from 'react';
-import {Link } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
 import { asyncEmployeeListActions } from '../../redux/employeeList/employeeList.action.creator'
 import { connect } from 'react-redux';
-
+import EmployeeSearch from '../Search-Employee/Search-employee';
 import DataTable from 'react-data-table-component';
 
 const EmployeeList = ({ getEmployeeList, employeeList, history }) => {
 
-   const  handleCellClick = (row) => {
+    const [newEmployeeList, setnewEmployeeList] = useState([]);
+    const handleCellClick = (row) => {
         console.log(row);
         history.push(`employee-details/${row.empCode}`)
     };
+
+
+
+
     //Joining Date
     let loading = true;
     const columns = [
@@ -27,7 +31,7 @@ const EmployeeList = ({ getEmployeeList, employeeList, history }) => {
 
         {
             name: 'Year of Experience',
-            selector: ' Year of Exp',
+            selector: 'yearOfExp',
             sortable: true
         },
 
@@ -38,28 +42,46 @@ const EmployeeList = ({ getEmployeeList, employeeList, history }) => {
         },
 
         {
+            name: 'Date of Joining',
+            selector: 'joiningDate',
+            sortable: true
+        },
+
+        {
             name: 'Action',
             sortable: false,
             cell: cellInfo => (
-                <button className="scenarioDetailLink" onClick = {() =>handleCellClick(cellInfo)}>
+                <button className="scenarioDetailLink" onClick={() => handleCellClick(cellInfo)}>
                     view Details
                      </button>
             )
-          },
+        },
     ];
     useEffect(() => {
         getEmployeeList();
         employeeList && employeeList.length > 0 ? loading = false : loading = true;
-    }, [])
+        const newEmployeeList = employeeList && employeeList.map((employee) => {
+            const joiningDate = new Date(employee.dateOfJoining.seconds * 1000).getFullYear();
+            const currentDate =new Date().getFullYear();
+           const yearOfExp =  Math.abs((currentDate - joiningDate));
+           console.log(yearOfExp)
+            const newEmployee = {
+                ...employee,
+                joiningDate: new Date(employee.dateOfJoining.seconds * 1000).toDateString(),
+                yearOfExp
+            }
+            return newEmployee
+        })
+        setnewEmployeeList(newEmployeeList)
+    }, [employeeList.length])
 
     return (
         <div>
+            <EmployeeSearch/>
             <DataTable
-                
-                title="Employee Table"
                 columns={columns}
-                data={employeeList}
-                progressPending = {false}
+                data={newEmployeeList}
+                progressPending={false}
             />
         </div>
     )

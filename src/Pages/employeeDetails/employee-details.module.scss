@@ -1,0 +1,8 @@
+.employee-details{
+    display: flex;
+    flex-direction: column;
+    .employee-name-exp{
+        display: flex;
+        flex-direction: row;
+    }
+}

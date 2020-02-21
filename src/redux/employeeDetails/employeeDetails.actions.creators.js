@@ -3,7 +3,6 @@ import firebaseDb from '../../firebase';
 
 export const asyncEmployeeDetails = (empID) => {
     return dispatch => {
-        console.log('empID', empID);
         const employeeDetails = firebaseDb.collection('users').doc(empID);
 
         employeeDetails.get().then(function (doc) {
