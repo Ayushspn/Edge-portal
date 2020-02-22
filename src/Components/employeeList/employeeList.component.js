@@ -5,7 +5,8 @@ import EmployeeSearch from '../Search-Employee/Search-employee';
 import DataTable from 'react-data-table-component';
 import FilterByExperoence from '../filterByExpeirence/filterByExpeirence.component';
 import classes from './employeeList.scss';
-const EmployeeList = ({ getEmployeeList, employeeList, history, employeeKeyWordSearch }) => {
+const EmployeeList = ({ getEmployeeList, employeeList,
+    history, searchedEmployee, employeeFilterKeyWord }) => {
 
     const [newEmployeeList, setnewEmployeeList] = useState([]);
     const handleCellClick = (row) => {
@@ -60,6 +61,7 @@ const EmployeeList = ({ getEmployeeList, employeeList, history, employeeKeyWordS
     useEffect(() => {
         getEmployeeList();
         const setFilterEmployeeList = [];
+        const setSerachEmployeList = [];
         employeeList && employeeList.length > 0 ? loading = false : loading = true;
         const newEmployeeList = employeeList && employeeList.map((employee) => {
             const joiningDate = new Date(employee.dateOfJoining.seconds * 1000).getFullYear();
@@ -70,29 +72,39 @@ const EmployeeList = ({ getEmployeeList, employeeList, history, employeeKeyWordS
                 joiningDate: new Date(employee.dateOfJoining.seconds * 1000).toDateString(),
                 yearOfExp
             }
-            if (employeeKeyWordSearch && employeeKeyWordSearch.length > 0) {
-                if (newEmployee.Name.toUpperCase().includes(employeeKeyWordSearch.toUpperCase())) {
+            if (employeeFilterKeyWord  > 0) {
+                if (newEmployee.yearOfExp < employeeFilterKeyWord) {
                     setFilterEmployeeList.push(newEmployee);
                 }
             }
+            if (searchedEmployee && searchedEmployee.length > 0) {
+                if (newEmployee.Name.toUpperCase().includes(searchedEmployee.toUpperCase())) {
+                    setSerachEmployeList.push(newEmployee);
+                }
+            }
+
             else {
                 return newEmployee;
             }
 
+
         })
-        if (employeeKeyWordSearch && employeeKeyWordSearch.length > 0) {
+        if(searchedEmployee && searchedEmployee.length > 0){
+            setnewEmployeeList(setSerachEmployeList)  
+        }
+        else if ( employeeFilterKeyWord > 0) {
             setnewEmployeeList(setFilterEmployeeList)
         }
         else {
             setnewEmployeeList(newEmployeeList)
         }
 
-    }, [employeeList.length, employeeKeyWordSearch])
+    }, [employeeList.length, searchedEmployee, employeeFilterKeyWord])
 
     return (
-        <div className ={classes.mainContainer}>
+        <div className={classes.mainContainer}>
             <div>
-                <FilterByExperoence/>
+                <FilterByExperoence />
             </div>
             <div>
                 <EmployeeSearch />
@@ -105,10 +117,15 @@ const EmployeeList = ({ getEmployeeList, employeeList, history, employeeKeyWordS
         </div>
     )
 }
-const mapDispatchToState = ({ emplList: { employeeList }, searchEmployee: { employeeKeyWordSearch } }) => {
+const mapDispatchToState = ({ emplList:
+    { employeeList }, searchEmployee:
+    { searchedEmployee },
+    employeFilter: { employeeFilterKeyWord }
+}) => {
     return {
         employeeList,
-        employeeKeyWordSearch
+        searchedEmployee,
+        employeeFilterKeyWord
     }
 }
 const mapDispatchToProps = (dispatch) => {

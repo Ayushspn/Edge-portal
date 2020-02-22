@@ -1,7 +1,7 @@
 import { SEARCH_EMPLOYEE } from './searchEmployee.action.types';
 import {store as store} from '../../index';
 const INITIAL_STATE = {
-    searchedEmployee : []
+    searchedEmployee : ''
 }
 
 const searchEmployeeReducer = (state = INITIAL_STATE,action) => {
@@ -10,7 +10,7 @@ const searchEmployeeReducer = (state = INITIAL_STATE,action) => {
         case SEARCH_EMPLOYEE : {
             return {
                 ...state, 
-                employeeKeyWordSearch : action.payload
+                searchedEmployee : action.payload
             }
         }
 
