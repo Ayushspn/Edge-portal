@@ -3,7 +3,8 @@ import { asyncEmployeeListActions } from '../../redux/employeeList/employeeList.
 import { connect } from 'react-redux';
 import EmployeeSearch from '../Search-Employee/Search-employee';
 import DataTable from 'react-data-table-component';
-
+import FilterByExperoence from '../filterByExpeirence/filterByExpeirence.component';
+import classes from './employeeList.scss';
 const EmployeeList = ({ getEmployeeList, employeeList, history, employeeKeyWordSearch }) => {
 
     const [newEmployeeList, setnewEmployeeList] = useState([]);
@@ -89,13 +90,18 @@ const EmployeeList = ({ getEmployeeList, employeeList, history, employeeKeyWordS
     }, [employeeList.length, employeeKeyWordSearch])
 
     return (
-        <div>
-            <EmployeeSearch />
-            <DataTable
-                columns={columns}
-                data={newEmployeeList}
-                progressPending={false}
-            />
+        <div className ={classes.mainContainer}>
+            <div>
+                <FilterByExperoence/>
+            </div>
+            <div>
+                <EmployeeSearch />
+                <DataTable
+                    columns={columns}
+                    data={newEmployeeList}
+                    progressPending={false}
+                />
+            </div>
         </div>
     )
 }
