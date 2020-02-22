@@ -4,11 +4,10 @@ import { connect } from 'react-redux';
 import EmployeeSearch from '../Search-Employee/Search-employee';
 import DataTable from 'react-data-table-component';
 
-const EmployeeList = ({ getEmployeeList, employeeList, history }) => {
+const EmployeeList = ({ getEmployeeList, employeeList, history, employeeKeyWordSearch }) => {
 
     const [newEmployeeList, setnewEmployeeList] = useState([]);
     const handleCellClick = (row) => {
-        console.log(row);
         history.push(`employee-details/${row.empCode}`)
     };
 
@@ -59,25 +58,39 @@ const EmployeeList = ({ getEmployeeList, employeeList, history }) => {
     ];
     useEffect(() => {
         getEmployeeList();
+        const setFilterEmployeeList = [];
         employeeList && employeeList.length > 0 ? loading = false : loading = true;
         const newEmployeeList = employeeList && employeeList.map((employee) => {
             const joiningDate = new Date(employee.dateOfJoining.seconds * 1000).getFullYear();
-            const currentDate =new Date().getFullYear();
-           const yearOfExp =  Math.abs((currentDate - joiningDate));
-           console.log(yearOfExp)
+            const currentDate = new Date().getFullYear();
+            const yearOfExp = Math.abs((currentDate - joiningDate));
             const newEmployee = {
                 ...employee,
                 joiningDate: new Date(employee.dateOfJoining.seconds * 1000).toDateString(),
                 yearOfExp
             }
-            return newEmployee
+            if (employeeKeyWordSearch && employeeKeyWordSearch.length > 0) {
+                if (newEmployee.Name.toUpperCase().includes(employeeKeyWordSearch.toUpperCase())) {
+                    setFilterEmployeeList.push(newEmployee);
+                }
+            }
+            else {
+                return newEmployee;
+            }
+
         })
-        setnewEmployeeList(newEmployeeList)
-    }, [employeeList.length])
+        if (employeeKeyWordSearch && employeeKeyWordSearch.length > 0) {
+            setnewEmployeeList(setFilterEmployeeList)
+        }
+        else {
+            setnewEmployeeList(newEmployeeList)
+        }
+
+    }, [employeeList.length, employeeKeyWordSearch])
 
     return (
         <div>
-            <EmployeeSearch/>
+            <EmployeeSearch />
             <DataTable
                 columns={columns}
                 data={newEmployeeList}
@@ -86,9 +99,10 @@ const EmployeeList = ({ getEmployeeList, employeeList, history }) => {
         </div>
     )
 }
-const mapDispatchToState = ({ emplList: { employeeList } }) => {
+const mapDispatchToState = ({ emplList: { employeeList }, searchEmployee: { employeeKeyWordSearch } }) => {
     return {
-        employeeList
+        employeeList,
+        employeeKeyWordSearch
     }
 }
 const mapDispatchToProps = (dispatch) => {

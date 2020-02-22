@@ -8,10 +8,8 @@ import { asyncEmployeeDetails } from '../../redux/employeeDetails/employeeDetail
 const EmployeeDetails = ({ match, getEmpDetails, employeeDetails, skillSet }) => {
 
     const toggleSkills = () => {
-        console.log('clicked');
     }
     useEffect(() => {
-        console.log(match.params.id)
         if (match && match.params) {
             getEmpDetails(match.params.id)
 

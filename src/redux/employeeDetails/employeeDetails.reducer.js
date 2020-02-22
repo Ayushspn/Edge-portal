@@ -8,7 +8,6 @@ const employeeDetailsReducer = (state = INITIAL_STATE,action) => {
     
     switch(action.type){
         case GET_EMPLOYEE_DETAILS : {
-            console.log(action)
             return {
                 ...state, 
                 employeeDetails : action.payload

@@ -26,7 +26,6 @@ class SignIn extends React.Component {
             const loginDetails = {
                 userName
             }
-            console.log(loginDetails);
             this.props.loginFirstTime(loginDetails);
         }
         

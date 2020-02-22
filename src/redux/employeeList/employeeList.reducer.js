@@ -9,7 +9,6 @@ const employeeListReducer = (state = INITIAL_STATE,action) => {
     switch(action.type){
        
         case GET_EMPLOYEE_LIST : {
-            console.log(action)
             return {
                 ...state, 
                 employeeList : [...action.payload]

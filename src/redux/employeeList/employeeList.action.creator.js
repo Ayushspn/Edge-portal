@@ -8,7 +8,6 @@ export const  asyncEmployeeListActions = ()  => {
             querySnapshot.docs.map((doc) =>{
                employeeList.push(doc.data())
             })   
-            console.log(employeeList);
             dispatch(employeeListAction(employeeList));       
         });
         
