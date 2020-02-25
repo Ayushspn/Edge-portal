@@ -1,0 +1,23 @@
+@import  '../../Styles/color.scss';
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+  .viewDetailsBtn {
+    background-color: $themeBgc;
+    border: 0;
+    padding: 4px;
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 8px 4px;
+  }
+  .filterByExp {
+    display: flex;
+    flex-basis: 30%;
+  }
+  .filterSearchEmploye{
+      display: flex;
+      justify-content: space-evenly;
+      padding-top: 20px;
+  }
+}
+

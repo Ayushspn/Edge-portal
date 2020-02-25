@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import EmployeeSearch from '../Search-Employee/Search-employee';
 import DataTable from 'react-data-table-component';
 import FilterByExperoence from '../filterByExpeirence/filterByExpeirence.component';
-import classes from './employeeList.scss';
+import classes from './employeeList.module.scss';
+
 const EmployeeList = ({ getEmployeeList, employeeList,
     history, searchedEmployee, employeeFilterKeyWord }) => {
 
@@ -52,7 +53,7 @@ const EmployeeList = ({ getEmployeeList, employeeList,
             name: 'Action',
             sortable: false,
             cell: cellInfo => (
-                <button className="scenarioDetailLink" onClick={() => handleCellClick(cellInfo)}>
+                <button className={classes.viewDetailsBtn} onClick={() => handleCellClick(cellInfo)}>
                     view Details
                      </button>
             )
@@ -72,7 +73,7 @@ const EmployeeList = ({ getEmployeeList, employeeList,
                 joiningDate: new Date(employee.dateOfJoining.seconds * 1000).toDateString(),
                 yearOfExp
             }
-            if (employeeFilterKeyWord  > 0) {
+            if (employeeFilterKeyWord > 0) {
                 if (newEmployee.yearOfExp < employeeFilterKeyWord) {
                     setFilterEmployeeList.push(newEmployee);
                 }
@@ -89,10 +90,10 @@ const EmployeeList = ({ getEmployeeList, employeeList,
 
 
         })
-        if(searchedEmployee && searchedEmployee.length > 0){
-            setnewEmployeeList(setSerachEmployeList)  
+        if (searchedEmployee && searchedEmployee.length > 0) {
+            setnewEmployeeList(setSerachEmployeList)
         }
-        else if ( employeeFilterKeyWord > 0) {
+        else if (employeeFilterKeyWord > 0) {
             setnewEmployeeList(setFilterEmployeeList)
         }
         else {
@@ -103,11 +104,15 @@ const EmployeeList = ({ getEmployeeList, employeeList,
 
     return (
         <div className={classes.mainContainer}>
-            <div>
-                <FilterByExperoence />
+            <div className={classes.filterSearchEmploye}>
+                <div >
+                    <FilterByExperoence />
+                </div>
+                <div>
+                    <EmployeeSearch />
+                </div>
             </div>
             <div>
-                <EmployeeSearch />
                 <DataTable
                     columns={columns}
                     data={newEmployeeList}
@@ -115,6 +120,7 @@ const EmployeeList = ({ getEmployeeList, employeeList,
                 />
             </div>
         </div>
+
     )
 }
 const mapDispatchToState = ({ emplList:

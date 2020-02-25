@@ -1,0 +1,17 @@
+@import '../../Styles/color.scss';
+
+.header{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    padding: 10px 0;
+    background-color: $themeBgc;
+    color: $themeColor;
+    .navList{
+        display: flex;
+        list-style-type: none;
+    }
+    .navListItem{
+        margin: 0 15px;
+    }
+}
