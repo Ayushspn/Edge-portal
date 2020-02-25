@@ -42,7 +42,6 @@
     "jest-resolve": "24.9.0",
     "jest-watch-typeahead": "0.4.2",
     "mini-css-extract-plugin": "0.8.0",
-    "node-sass": "^4.13.1",
     "optimize-css-assets-webpack-plugin": "5.0.3",
     "pnp-webpack-plugin": "1.5.0",
     "postcss-flexbugs-fixes": "4.1.0",
@@ -61,14 +60,12 @@
     "redux-thunk": "^2.3.0",
     "resolve": "1.12.2",
     "resolve-url-loader": "3.1.1",
-    "sass-loader": "8.0.0",
     "semver": "6.3.0",
     "style-loader": "1.0.0",
     "styled-components": "^5.0.1",
     "terser-webpack-plugin": "2.2.1",
     "ts-pnp": "1.1.5",
     "url-loader": "2.3.0",
-    "webpack": "4.41.2",
     "webpack-dev-server": "3.9.0",
     "webpack-manifest-plugin": "2.2.0",
     "workbox-webpack-plugin": "4.3.1"
@@ -147,5 +144,10 @@
     "presets": [
       "react-app"
     ]
+  },
+  "devDependencies": {
+    "node-sass": "^4.13.1",
+    "sass-loader": "^8.0.0",
+    "webpack": "^4.41.2"
   }
 }
