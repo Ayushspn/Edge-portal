@@ -15,9 +15,9 @@ const Header = () => {
                     <li className ={classes.navListItem}>
                         <Link to='/about-us'>About US</Link>
                     </li>
-                    <li className ={classes.navListItem}>
+                    {/* <li className ={classes.navListItem}>
                         <Link to='/about-us'>About US</Link>
-                    </li>
+                    </li> */}
                 </ul>
             </div>
         </header>
