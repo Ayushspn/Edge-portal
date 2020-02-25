@@ -104,23 +104,19 @@ const EmployeeList = ({ getEmployeeList, employeeList,
 
     return (
         <div className={classes.mainContainer}>
-            <div className={classes.filterSearchEmploye}>
-                <div >
-                    <FilterByExperoence />
-                </div>
-                <div>
-                    <EmployeeSearch />
-                </div>
+            <div >
+                <FilterByExperoence />
             </div>
-            <div>
-                <DataTable
-                    columns={columns}
-                    data={newEmployeeList}
-                    progressPending={false}
-                />
+
+            <div>  
+                    <EmployeeSearch />
+                    <DataTable
+                        columns={columns}
+                        data={newEmployeeList}
+                        progressPending={false}
+                    />
             </div>
         </div>
-
     )
 }
 const mapDispatchToState = ({ emplList:
