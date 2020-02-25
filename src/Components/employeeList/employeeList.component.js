@@ -104,11 +104,10 @@ const EmployeeList = ({ getEmployeeList, employeeList,
 
     return (
         <div className={classes.mainContainer}>
-            <div >
+            <div className={classes.filterExp}>
                 <FilterByExperoence />
             </div>
-
-            <div>  
+            <div className={classes.searchTable}>  
                     <EmployeeSearch />
                     <DataTable
                         columns={columns}

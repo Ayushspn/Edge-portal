@@ -1,6 +1,6 @@
 @import  '../../Styles/color.scss';
 .mainContainer {
-  display: flex;
+    display: flex;
   .viewDetailsBtn {
     background-color: $themeBgc;
     border: 0;
@@ -17,6 +17,16 @@
       display: flex;
       justify-content: space-evenly;
       padding-top: 20px;
+  }
+  .filterExp{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-right: 20px;
+  }
+  .searchTable{
+      min-width: 650px;
+      min-height: 400px;
   }
 }
 
