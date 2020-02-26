@@ -2,7 +2,6 @@ import React from 'react'
 import EmployeFilterByJoiningDate from '../EmployeeFilterByJoinindDate/EmployeFilterByJoiningDate';
 import EmployeeSearch from '../Search-Employee/Search-employee';
 const RenderComponent = ({type}) => {
-    console.log(type)
     switch(type){
         case 'Joining Date':
         return(<EmployeFilterByJoiningDate/>)

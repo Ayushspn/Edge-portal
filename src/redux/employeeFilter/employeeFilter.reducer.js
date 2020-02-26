@@ -1,7 +1,8 @@
 import { FILTER_EMPLOYEE_DETAILS} from './employeeFilter.action.types';
-
+import { FILTER_EMPLOYEE_JOINING_DATE} from './employeeFilter.action.types';
 const INITIAL_STATE = {
-    employeeFilterKeyWord: 0
+    employeeFilterKeyWord: 0, 
+    emplyeeFilterDateRange : {}
 }
 
 const employeeFilterReducer = (state = INITIAL_STATE,action) => {
@@ -11,6 +12,13 @@ const employeeFilterReducer = (state = INITIAL_STATE,action) => {
             return {
                 ...state, 
                 employeeFilterKeyWord : action.payload
+            }
+        }
+
+        case FILTER_EMPLOYEE_JOINING_DATE : {
+            return {
+                ...state, 
+                emplyeeFilterDateRange : action.payload
             }
         }
 

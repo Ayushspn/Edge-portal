@@ -1,11 +1,19 @@
 import React, { useState } from 'react'
 import clasess from './EmployeeFilterByJoiningDate.module.scss';
-
+import {connect} from 'react-redux';
 import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from "react-datepicker";
-const EmployeFilterByJoiningDate = () => {
+import {employeeFilterByDate} from '../../redux/employeeFilter/employeeFilter.actions.creator';
+const EmployeFilterByJoiningDate = ({setDate}) => {
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
+
+    const setStartEndDate  = () => {
+        setDate({
+            startDate,
+            endDate
+        })
+    }
 
     return (
         <div className={clasess.dateContainer}>
@@ -28,9 +36,14 @@ const EmployeFilterByJoiningDate = () => {
                     selected={endDate}
                 ></DatePicker>
             </div>
-            <button>Okay</button>
+            <button onClick = {setStartEndDate}>Okay</button>
         </div>
     )
 }
+const mapDispatchToProps = dispatch => {
+    return{
+        setDate : (date) => dispatch(employeeFilterByDate(date))
+    }
+}
 
-export default EmployeFilterByJoiningDate;
+export default connect(null, mapDispatchToProps)(EmployeFilterByJoiningDate);

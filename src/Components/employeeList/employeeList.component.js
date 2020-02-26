@@ -7,7 +7,7 @@ import classes from './employeeList.module.scss';
 import RenderComponent from '../RenderComponent/RenderComponent';
 
 const EmployeeList = ({ getEmployeeList, employeeList,
-    history, searchedEmployee, employeeFilterKeyWord }) => {
+    history, searchedEmployee, employeeFilterKeyWord, emplyeeFilterDateRange }) => {
 
     const [newEmployeeList, setnewEmployeeList] = useState([]);
     const [componentType, setcomponentType] = useState(['Search Employee']);
@@ -62,6 +62,8 @@ const EmployeeList = ({ getEmployeeList, employeeList,
         getEmployeeList();
         const setFilterEmployeeList = [];
         const setSerachEmployeList = [];
+        const setJoiningFilterList = [];
+        const filteredEmpList = [];
         const newEmployeeList = employeeList && employeeList.map((employee) => {
             const joiningDate = new Date(employee.dateOfJoining.seconds * 1000).getFullYear();
             const currentDate = new Date().getFullYear();
@@ -71,22 +73,38 @@ const EmployeeList = ({ getEmployeeList, employeeList,
                 joiningDate: new Date(employee.dateOfJoining.seconds * 1000).toDateString(),
                 yearOfExp
             }
+            
+            if (emplyeeFilterDateRange.startDate && emplyeeFilterDateRange.endDate) {
+                const endDateParsed = Date.parse(emplyeeFilterDateRange.endDate.toDateString())
+                const startDateParsed = Date.parse(emplyeeFilterDateRange.startDate.toDateString())
+                const joiningDateparse = Date.parse(newEmployee.joiningDate);
+                if (startDateParsed <= joiningDateparse && joiningDateparse <= endDateParsed
+                ) {
+                    setJoiningFilterList.push(newEmployee);
+                    filteredEmpList.push(newEmployee)
+                }
+            }
             if (employeeFilterKeyWord > 0) {
-                if (newEmployee.yearOfExp < employeeFilterKeyWord) {
+                if (newEmployee.yearOfExp <= employeeFilterKeyWord  ) {
                     setFilterEmployeeList.push(newEmployee);
+                    const getIndex = filteredEmpList.findIndex((filteredEmpListItem) => filteredEmpListItem.empCode ===  newEmployee.empCode);
+                    if(getIndex === -1){
+                        filteredEmpList.push(newEmployee)
+                    }
                 }
             }
             if (searchedEmployee && searchedEmployee.length > 0) {
                 if (newEmployee.Name.toUpperCase().includes(searchedEmployee.toUpperCase())) {
                     setSerachEmployeList.push(newEmployee);
+                    const getIndex = filteredEmpList.findIndex((filteredEmpListItem) => filteredEmpListItem.empCode ===  newEmployee.empCode);
+                    if(getIndex === -1){
+                        filteredEmpList.push(newEmployee)
+                    }
                 }
             }
-
             else {
                 return newEmployee;
             }
-
-
         })
         if (searchedEmployee && searchedEmployee.length > 0) {
             setnewEmployeeList(setSerachEmployeList)
@@ -99,7 +117,10 @@ const EmployeeList = ({ getEmployeeList, employeeList,
         }
 
 
-    }, [employeeList.length, searchedEmployee, employeeFilterKeyWord]);
+    }, [employeeList.length,
+        searchedEmployee,
+        employeeFilterKeyWord,
+        emplyeeFilterDateRange]);
 
     const slectFilterMoethod = (event) => {
         setcomponentType(event.target.value);
@@ -132,12 +153,13 @@ const EmployeeList = ({ getEmployeeList, employeeList,
 const mapDispatchToState = ({ emplList:
     { employeeList }, searchEmployee:
     { searchedEmployee },
-    employeFilter: { employeeFilterKeyWord }
+    employeFilter: { employeeFilterKeyWord, emplyeeFilterDateRange }
 }) => {
     return {
         employeeList,
         searchedEmployee,
-        employeeFilterKeyWord
+        employeeFilterKeyWord,
+        emplyeeFilterDateRange
     }
 }
 const mapDispatchToProps = (dispatch) => {
