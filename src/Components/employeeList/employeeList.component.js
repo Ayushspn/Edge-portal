@@ -9,8 +9,11 @@ import RenderComponent from '../RenderComponent/RenderComponent';
 const EmployeeList = ({ getEmployeeList, employeeList,
     history, searchedEmployee, employeeFilterKeyWord, emplyeeFilterDateRange }) => {
 
+
     const [newEmployeeList, setnewEmployeeList] = useState([]);
     const [componentType, setcomponentType] = useState(['Search Employee']);
+
+
 
     const handleCellClick = (row) => {
         history.push(`employee-details/${row.empCode}`)
@@ -64,6 +67,7 @@ const EmployeeList = ({ getEmployeeList, employeeList,
         const setSerachEmployeList = [];
         const setJoiningFilterList = [];
         const filteredEmpList = [];
+
         const newEmployeeList = employeeList && employeeList.map((employee) => {
             const joiningDate = new Date(employee.dateOfJoining.seconds * 1000).getFullYear();
             const currentDate = new Date().getFullYear();
@@ -73,7 +77,7 @@ const EmployeeList = ({ getEmployeeList, employeeList,
                 joiningDate: new Date(employee.dateOfJoining.seconds * 1000).toDateString(),
                 yearOfExp
             }
-            
+            /// only for range 
             if (emplyeeFilterDateRange.startDate && emplyeeFilterDateRange.endDate) {
                 const endDateParsed = Date.parse(emplyeeFilterDateRange.endDate.toDateString())
                 const startDateParsed = Date.parse(emplyeeFilterDateRange.startDate.toDateString())
@@ -85,21 +89,13 @@ const EmployeeList = ({ getEmployeeList, employeeList,
                 }
             }
             if (employeeFilterKeyWord > 0) {
-                if (newEmployee.yearOfExp <= employeeFilterKeyWord  ) {
+                if (newEmployee.yearOfExp <= employeeFilterKeyWord) {
                     setFilterEmployeeList.push(newEmployee);
-                    const getIndex = filteredEmpList.findIndex((filteredEmpListItem) => filteredEmpListItem.empCode ===  newEmployee.empCode);
-                    if(getIndex === -1){
-                        filteredEmpList.push(newEmployee)
-                    }
                 }
             }
             if (searchedEmployee && searchedEmployee.length > 0) {
                 if (newEmployee.Name.toUpperCase().includes(searchedEmployee.toUpperCase())) {
                     setSerachEmployeList.push(newEmployee);
-                    const getIndex = filteredEmpList.findIndex((filteredEmpListItem) => filteredEmpListItem.empCode ===  newEmployee.empCode);
-                    if(getIndex === -1){
-                        filteredEmpList.push(newEmployee)
-                    }
                 }
             }
             else {
@@ -111,6 +107,9 @@ const EmployeeList = ({ getEmployeeList, employeeList,
         }
         else if (employeeFilterKeyWord > 0) {
             setnewEmployeeList(setFilterEmployeeList)
+        }
+        else if(setJoiningFilterList && setJoiningFilterList.length > 0){
+            setnewEmployeeList(setJoiningFilterList)
         }
         else {
             setnewEmployeeList(newEmployeeList)

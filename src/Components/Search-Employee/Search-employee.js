@@ -1,13 +1,15 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { connect } from 'react-redux';
 import {dispatchEmployeeDetails} from '../../redux/searchEmployee/searchEmployee.actions.creator';
-const employeeSearch = ({searchKeyWord}) => {
+const EmployeeSearch = ({searchKeyWord}) => {
+    const [nameValue, setNameValue] = useState('');
     const searchEmployeeByName = (event) => {
-            searchKeyWord(event.target.value);
+        setNameValue(event.target.value)   ;
     }
     return (
         <>
-            <input type = 'search' placeholder ='search for employee' onKeyUp = {searchEmployeeByName}/>
+            <input type = 'search' placeholder ='search for employee' onChange = {searchEmployeeByName}/>
+            <button onClick = {() =>searchKeyWord(nameValue)}>Okay</button>
         </>
     )
 }
@@ -16,4 +18,4 @@ const mapDispatchToProps = (dispatch) => {
         searchKeyWord : (keyWord) => dispatch(dispatchEmployeeDetails(keyWord))
     }
 }
-export default connect(null, mapDispatchToProps)(employeeSearch);
+export default connect(null, mapDispatchToProps)(EmployeeSearch);
