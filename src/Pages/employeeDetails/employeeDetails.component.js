@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link } from "react-router-dom";
-import { faAngelDown } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-//import {faAngelDown} from '@fortawesome/fontawesome-pro-regular/';
+import classes from './employee-details.module.scss';
+
 import { asyncEmployeeDetails } from '../../redux/employeeDetails/employeeDetails.actions.creators';
 const EmployeeDetails = ({ match, getEmpDetails, employeeDetails, skillSet }) => {
 
@@ -19,8 +18,8 @@ const EmployeeDetails = ({ match, getEmpDetails, employeeDetails, skillSet }) =>
 
 
 
-    return <div class='employee-details'>
-        <div>
+    return <div class={classes.employeeDetails}>
+        <div style = {{'align-self': 'flex-start'}}>
             <Link to='/'>Back</Link>
         </div>
         <div>
