@@ -6,43 +6,41 @@ import classes from './employee-details.module.scss';
 import { asyncEmployeeDetails } from '../../redux/employeeDetails/employeeDetails.actions.creators';
 const EmployeeDetails = ({ match, getEmpDetails, employeeDetails, skillSet }) => {
 
-    const toggleSkills = () => {
-    }
+   
     useEffect(() => {
         if (match && match.params) {
             getEmpDetails(match.params.id)
-
         }
-
     }, []);
 
 
 
     return <div class={classes.employeeDetails}>
-        <div style = {{'align-self': 'flex-start'}}>
-            <Link to='/'>Back</Link>
+        <div className={classes.backToHome}>
+            <Link to='/'>Back To Home</Link>
         </div>
         <div>
-            <div className='employee-name-exp'>
-                <div>
-                    Name : {employeeDetails.Name}
+            <div className={classes.employeeNameExp}>
+                <div className= {classes.empDetail}>
+                    <span>Name</span> : <span>{employeeDetails.Name}</span>
                 </div>
-                <div>
-                    Emp Code : {employeeDetails['empCode']}
+                <div className= {classes.empDetail}>
+                    <span>Emp Code</span> : <span>{employeeDetails['empCode']}</span>
 
                 </div>
             </div>
-            <div>Emp Exp :{employeeDetails[' Year of Exp']}</div>
-            <div>Emp Category :{employeeDetails['Category']}
-                <span onClick={() => toggleSkills()}>
-                    <i class="fa fa-angle-down"></i>
-                </span>
+            <div className={classes.employeeNameExp}>
+                <div className= {classes.empDetail}>Emp Exp :{employeeDetails[' Year of Exp']}</div>
+                <div className= {classes.empDetail}>Emp Category :{employeeDetails['Category']}
+                </div>
             </div>
-            <div>
-                Sub Skill Set
+            <div className={classes.employeeNameExp}>
+                <div className= {classes.backToHome}>
+                    <h4 className= {classes.empDetail}>Sub Skill Set</h4>
                 <ol>
                     {employeeDetails['skillSet'] && employeeDetails['skillSet'].map((skill) => <li>{skill}</li>)}
                 </ol>
+                </div>
             </div>
         </div>
     </div >

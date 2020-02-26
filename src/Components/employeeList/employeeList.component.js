@@ -18,6 +18,7 @@ const EmployeeList = ({ getEmployeeList, employeeList,
     const handleCellClick = (row) => {
         history.push(`employee-details/${row.empCode}`)
     };
+
     const columns = [
         {
             name: 'Name',
@@ -60,24 +61,10 @@ const EmployeeList = ({ getEmployeeList, employeeList,
     ];
 
 
-
     useEffect(() => {
-        getEmployeeList();
-        const setFilterEmployeeList = [];
-        const setSerachEmployeList = [];
         const setJoiningFilterList = [];
-        const filteredEmpList = [];
-
         const newEmployeeList = employeeList && employeeList.map((employee) => {
-            const joiningDate = new Date(employee.dateOfJoining.seconds * 1000).getFullYear();
-            const currentDate = new Date().getFullYear();
-            const yearOfExp = Math.abs((currentDate - joiningDate));
-            const newEmployee = {
-                ...employee,
-                joiningDate: new Date(employee.dateOfJoining.seconds * 1000).toDateString(),
-                yearOfExp
-            }
-            /// only for range 
+            const newEmployee = filterOutEmployee(employee)
             if (emplyeeFilterDateRange.startDate && emplyeeFilterDateRange.endDate) {
                 const endDateParsed = Date.parse(emplyeeFilterDateRange.endDate.toDateString())
                 const startDateParsed = Date.parse(emplyeeFilterDateRange.startDate.toDateString())
@@ -85,9 +72,25 @@ const EmployeeList = ({ getEmployeeList, employeeList,
                 if (startDateParsed <= joiningDateparse && joiningDateparse <= endDateParsed
                 ) {
                     setJoiningFilterList.push(newEmployee);
-                    filteredEmpList.push(newEmployee)
                 }
             }
+        })
+
+        if (setJoiningFilterList && setJoiningFilterList.length > 0) {
+            setnewEmployeeList(setJoiningFilterList)
+        }
+
+    }, [employeeList.length, emplyeeFilterDateRange])
+
+
+
+    useEffect(() => {
+        getEmployeeList();
+        const setFilterEmployeeList = [];
+        const setSerachEmployeList = [];
+
+        const newEmployeeList = employeeList && employeeList.map((employee) => {
+            const newEmployee = filterOutEmployee(employee)
             if (employeeFilterKeyWord > 0) {
                 if (newEmployee.yearOfExp <= employeeFilterKeyWord) {
                     setFilterEmployeeList.push(newEmployee);
@@ -108,9 +111,6 @@ const EmployeeList = ({ getEmployeeList, employeeList,
         else if (employeeFilterKeyWord > 0) {
             setnewEmployeeList(setFilterEmployeeList)
         }
-        else if(setJoiningFilterList && setJoiningFilterList.length > 0){
-            setnewEmployeeList(setJoiningFilterList)
-        }
         else {
             setnewEmployeeList(newEmployeeList)
         }
@@ -119,7 +119,19 @@ const EmployeeList = ({ getEmployeeList, employeeList,
     }, [employeeList.length,
         searchedEmployee,
         employeeFilterKeyWord,
-        emplyeeFilterDateRange]);
+    ]);
+
+    function filterOutEmployee(employee) {
+        const joiningDate = new Date(employee.dateOfJoining.seconds * 1000).getFullYear();
+        const currentDate = new Date().getFullYear();
+        const yearOfExp = Math.abs((currentDate - joiningDate));
+        const newEmployee = {
+            ...employee,
+            joiningDate: new Date(employee.dateOfJoining.seconds * 1000).toDateString(),
+            yearOfExp
+        }
+        return newEmployee;
+    }
 
     const slectFilterMoethod = (event) => {
         setcomponentType(event.target.value);
