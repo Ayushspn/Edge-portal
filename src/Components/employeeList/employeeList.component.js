@@ -56,14 +56,12 @@ const EmployeeList = ({ getEmployeeList, employeeList,
         },
     ];
 
-    
-    
+
+
     useEffect(() => {
         getEmployeeList();
         const setFilterEmployeeList = [];
         const setSerachEmployeList = [];
-        
-
         const newEmployeeList = employeeList && employeeList.map((employee) => {
             const joiningDate = new Date(employee.dateOfJoining.seconds * 1000).getFullYear();
             const currentDate = new Date().getFullYear();
@@ -116,10 +114,10 @@ const EmployeeList = ({ getEmployeeList, employeeList,
                 <div className={classes.employeeSearch}>
                     <span>Search By </span>
                     <select className={classes.serachDropDown} onChange={(event) => slectFilterMoethod(event)}>
-                        <option value = 'Search Employee'>Name</option>
-                        <option value = 'Joining Date'>Joining Date</option>
+                        <option value='Search Employee'>Name</option>
+                        <option value='Joining Date'>Joining Date</option>
                     </select>
-                    <RenderComponent type = {componentType}/>
+                    <RenderComponent type={componentType} />
                 </div>
                 <DataTable
                     columns={columns}
