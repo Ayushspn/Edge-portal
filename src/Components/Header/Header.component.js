@@ -12,12 +12,13 @@ const Header = () => {
             </div>
             <div>
                 <ul className={classes.navList}>
+                <li className ={classes.navListItem}>
+                        <Link to='team'>Team</Link>
+                    </li>
                     <li className ={classes.navListItem}>
                         <Link to='/about-us'>About US</Link>
                     </li>
-                    {/* <li className ={classes.navListItem}>
-                        <Link to='/about-us'>About US</Link>
-                    </li> */}
+                    
                 </ul>
             </div>
         </header>

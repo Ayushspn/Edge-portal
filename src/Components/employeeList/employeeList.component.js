@@ -5,15 +5,24 @@ import DataTable from 'react-data-table-component';
 import FilterByExperoence from '../filterByExpeirence/filterByExpeirence.component';
 import classes from './employeeList.module.scss';
 import RenderComponent from '../RenderComponent/RenderComponent';
+import {toggleHiddenModal} from '../../redux/modal/modal.action.creators';
+import Modal from '../Modal/Modal';
+import Form from '../Form/Form';
 
 const EmployeeList = ({ getEmployeeList, employeeList,
-    history, searchedEmployee, employeeFilterKeyWord, emplyeeFilterDateRange }) => {
+    history, searchedEmployee, employeeFilterKeyWord, 
+    emplyeeFilterDateRange,
+    toggleModal,
+    toggleHiddenModalCmp
+}) => {
 
 
     const [newEmployeeList, setnewEmployeeList] = useState([]);
     const [componentType, setcomponentType] = useState(['Search Employee']);
 
-
+    const addEmployee = () => {
+        toggleHiddenModalCmp(true);
+    };
 
     const handleCellClick = (row) => {
         history.push(`employee-details/${row.empCode}`)
@@ -158,24 +167,31 @@ const EmployeeList = ({ getEmployeeList, employeeList,
                     title='Employee Table'
                 />
             </div>
+        <div>
+            <button onClick = {addEmployee}>Add Employee</button>
+            {toggleModal ?<Modal heading ='Add Employee'><Form></Form></Modal>: null}
+        </div>
         </div>
     )
 }
 const mapDispatchToState = ({ emplList:
     { employeeList }, searchEmployee:
     { searchedEmployee },
-    employeFilter: { employeeFilterKeyWord, emplyeeFilterDateRange }
+    employeFilter: { employeeFilterKeyWord, emplyeeFilterDateRange },
+    handleModal : {toggleModal}
 }) => {
     return {
         employeeList,
         searchedEmployee,
         employeeFilterKeyWord,
-        emplyeeFilterDateRange
+        emplyeeFilterDateRange,
+        toggleModal
     }
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-        getEmployeeList: () => dispatch(asyncEmployeeListActions())
+        getEmployeeList: () => dispatch(asyncEmployeeListActions()),
+        toggleHiddenModalCmp: (setModal) => dispatch(toggleHiddenModal(setModal))
     }
 
 }

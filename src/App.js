@@ -4,6 +4,7 @@ import EmployeeDetails from './Pages/employeeDetails/employeeDetails.component';
 import EmployeeList from './Components/employeeList/employeeList.component'
 import Header from './Components/Header/Header.component';
 import AboutUs from './Pages/AboutUs/AboutUs';
+import Team from './Pages/Team/Team';
 import './App.scss';
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
         <Route path='/' exact component={EmployeeList} />
         <Route path='/employee-details/:id' component={EmployeeDetails} />
         <Route path='/about-us' e component={AboutUs} />
+        <Route path='/team' e component={Team} />
         <Route  component={EmployeeList} />
       </Switch>
     </div>

@@ -1,5 +1,4 @@
 import { SEARCH_EMPLOYEE } from './searchEmployee.action.types';
-import {store as store} from '../../index';
 const INITIAL_STATE = {
     searchedEmployee : ''
 }

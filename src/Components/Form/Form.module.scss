@@ -1,0 +1,36 @@
+@import '../../Styles/color.scss';
+.formContainer{
+    display: flex;
+    flex-direction: column;
+    max-width: 35rem;
+    margin: 20px auto;
+    background-color: $themeColor;
+    color: $black;
+}
+.formHeading{
+    background-color: $themeBgc;
+    margin-top: 0;
+    padding: 10px 13px;
+    color: $themeColor;
+    font-size: larger;
+    text-align: left;
+}
+.addEmployeeForm{
+    display: flex;
+    flex-direction: column;
+    padding: 0 15%;
+    .btnGroup{
+        display: flex;
+        margin: 10px 0;
+    }
+
+    label{
+        padding: 10px 0;
+    }
+    button{
+        width: 50%;
+        &:nth-of-type(1){
+            margin-right:10px ;
+        }
+    }
+}
