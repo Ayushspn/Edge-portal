@@ -1,0 +1,2 @@
+export const SET_EMP_FORM_DETAIL = 'SET_EMP_FORM_DETAIL';
+
