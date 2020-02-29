@@ -3,7 +3,8 @@ import {connect} from 'react-redux';
 import DatePicker from "react-datepicker";
 import classes from './Form.module.scss';
 import {asyncSaveEmployeeDetails} from '../../redux/form/form.action.creator';
-const Form = ({saveAddEmpForm}) => {
+import {closeAddFormModal} from '../../redux/modal/modal.action.creators';
+const Form = ({saveAddEmpForm, closeEmpForm}) => {
     const [Name, setNameValue] =  useState('');
     const [empCode, setEmpCode] =  useState('');
     const [Category, setCategory] =  useState('');
@@ -17,6 +18,7 @@ const Form = ({saveAddEmpForm}) => {
             dateOfJoining
         }
         saveAddEmpForm(formDetails);
+        closeEmpForm(false);
     }
 
     const onHandleSelectCatgry = (event) => {
@@ -43,7 +45,7 @@ const Form = ({saveAddEmpForm}) => {
                 />
                 <div className={classes.btnGroup}>
                     <button type='submit'>Submit Details</button>
-                    <button type='button'>Cancel</button>
+                    <button type='button' onClick = {() => closeEmpForm(false)}>Cancel</button>
                 </div>
             </form>
         </div>
@@ -52,7 +54,8 @@ const Form = ({saveAddEmpForm}) => {
 }
 const mapDispatchToProps = dispatch => {
     return {
-        saveAddEmpForm : (empData) => dispatch(asyncSaveEmployeeDetails(empData))
+        saveAddEmpForm : (empData) => dispatch(asyncSaveEmployeeDetails(empData)),
+        closeEmpForm : (falseModal) => dispatch(closeAddFormModal(falseModal))
     }
 }
 

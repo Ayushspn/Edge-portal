@@ -1,1 +1,2 @@
 export const TOGGLE_MODAL = 'TOGGLE_MODAL';
+export const CLOSE_EMP_FORM_MODAL = 'CLOSE_EMP_FORM_MODAL';

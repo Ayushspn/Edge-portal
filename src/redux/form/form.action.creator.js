@@ -26,3 +26,4 @@ export  const successEmpDataSave = (empDetails) => {
         payload: empDetails
     }
 }
+

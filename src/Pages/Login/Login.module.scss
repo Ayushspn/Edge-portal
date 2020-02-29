@@ -1,0 +1,43 @@
+@import "../../Styles/color.scss";
+
+.loginFormHeading {
+  background-color: $themeBgc;
+  padding: 10px;
+}
+.loginImageContainer {
+  position: absolute;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  max-width: 100%;
+  position: absolute;
+  height: auto;
+  left: 0;
+  z-index: -1;
+}
+.loginImage {
+  position: absolute;
+  width: 50%;
+  left: 25%;
+  z-index: -1;
+}
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  padding: 72px 233px;
+  background-color: rgba(0, 0, 0, 0.5);
+  margin-top: 58px;
+  label {
+    padding: 10px 0;
+  }
+  .btnGroup {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 20px;
+  }
+  input[type="button"],
+  input[type="submit"] {
+    flex-basis: 50;
+  }
+}
