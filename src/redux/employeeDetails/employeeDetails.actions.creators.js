@@ -1,6 +1,6 @@
 import { GET_EMPLOYEE_DETAILS } from './employeeDetails.action.types';
 import firebaseDb from '../../firebase';
-
+// provider = new firebase.auth.OAuthProvider('microsoft.com');
 export const asyncEmployeeDetails = (empID) => {
     return dispatch => {
         const employeeDetails = firebaseDb.collection('users').doc(empID);
